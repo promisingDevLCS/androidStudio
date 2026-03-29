@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">My Application for Report</string>
+    <string name="hint_search">일기 검색</string>
+    <string name="hint_title">제목</string>
+    <string name="hint_content">오늘 하루를 기록해보세요…</string>
+    <string name="label_mood">기분</string>
+    <string name="add_diary">새 일기 작성</string>
+    <string name="clear_search">검색 지우기</string>
+    <string name="action_edit">수정</string>
+    <string name="action_delete">삭제</string>
+    <string name="action_save">저장</string>
+
+
+    <string-array name="mood_array">
+        <item>😊 행복</item>   <!-- HAPPY  → index 0 -->
+        <item>🙂 좋음</item>   <!-- GOOD   → index 1 -->
+        <item>😐 보통</item>   <!-- NEUTRAL → index 2 -->
+        <item>😢 슬픔</item>   <!-- SAD    → index 3 -->
+        <item>😠 화남</item>   <!-- ANGRY  → index 4 -->
+    </string-array>
 </resources>

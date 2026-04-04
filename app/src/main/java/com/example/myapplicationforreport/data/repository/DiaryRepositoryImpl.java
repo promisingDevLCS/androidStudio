@@ -42,7 +42,6 @@ public class DiaryRepositoryImpl implements DiaryRepository {
             diaryEntities.stream()
                     .map(this::toDomain)
                     .collect(Collectors.toList())
-
         );
     }
 
@@ -98,6 +97,7 @@ public class DiaryRepositoryImpl implements DiaryRepository {
     // 매핑 Domain -> Entity
     private DiaryEntity toEntity(Diary diary) {
         return new DiaryEntity(
+                diary.getId(),
                 diary.getTitle(),
                 diary.getContent(),
                 diary.getMood(),

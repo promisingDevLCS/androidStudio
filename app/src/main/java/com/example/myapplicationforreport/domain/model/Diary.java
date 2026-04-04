@@ -48,6 +48,10 @@ public class Diary {
         return title;
     }
 
+//    void setId(int id) {
+//        this.id = id;
+//    }
+
     public void setTitle(String title) {
         this.title = title;
     }

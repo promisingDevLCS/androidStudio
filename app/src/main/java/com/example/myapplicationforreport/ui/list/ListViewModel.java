@@ -23,17 +23,16 @@ public class ListViewModel extends AndroidViewModel {
 
     private final GetDiariesUseCase getDiariesUseCase;
     private final DeleteDiaryUseCase deleteDiaryUseCase;
-    private final MutableLiveData<String> keyword = new MutableLiveData<>();
+    private final MutableLiveData<String> keyword = new MutableLiveData<>("");
 
     public final LiveData<List<Diary>> diaries;
 
-    public ListViewModel(@NonNull Application application, LiveData<List<Diary>> diaries) {
+
+    public ListViewModel(@NonNull Application application) {
         super(application);
         DiaryRepositoryImpl repository = new DiaryRepositoryImpl(application);
         this.getDiariesUseCase = new GetDiariesUseCase(repository);
         this.deleteDiaryUseCase = new DeleteDiaryUseCase(repository);
-        // method Reference 사용
-        // = this.diaries = Transformations.switchMap(keyword, keyword -> getDiariesUseCase.execute(keyword));
         this.diaries = Transformations.switchMap(keyword, getDiariesUseCase::execute);
     }
 

@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listFragment">
 
-    <item
-        android:id="@+id/menu_home"
-        android:title="홈"
-        android:icon="@android:drawable/ic_menu_agenda"/>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.myapplicationforreport.ui.list.ListFragment"
+        android:label="일기 목록">
+        <action
+            android:id="@+id/action_list_to_detail"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
-    <item
-        android:id="@+id/menu_write"
-        android:title="작성"
-        android:icon="@android:drawable/ic_input_add"/>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.myapplicationforreport.ui.detail.DetailFragment"
+        android:label="일기 상세">
+        <argument
+            android:name="diaryId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_detail_to_edit"
+            app:destination="@id/editFragment" />
+    </fragment>
 
-    <item
-        android:id="@+id/menu_settings"
-        android:title="설정"
-        android:icon="@android:drawable/ic_menu_preferences"/>
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.myapplicationforreport.ui.edit.EditFragment"
+        android:label="일기 작성">
+        <argument
+            android:name="diaryId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
 
-</menu>
+</navigation>

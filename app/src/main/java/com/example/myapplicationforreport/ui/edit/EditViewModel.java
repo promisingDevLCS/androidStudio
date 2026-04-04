@@ -35,22 +35,14 @@ public class EditViewModel extends AndroidViewModel {
     }
 
     // 기존 일기 불러오기(수정 모드)
-    public LiveData<Diary> getDiary(int id) {
-        return getDiariesUseCase.executeById(id);
-    }
+    public LiveData<Diary> getDiary(int id) {return getDiariesUseCase.executeById(id);}
 
     // 저장(신규 + 수정 통합)
     public void save(String title, String content, Mood mood, Diary original) {
         try {
-            Diary diary;
-            // 신규 작성
-            if (original == null) {
-                diary = new Diary(title, content, mood, 0L, 0L);
-            }
-            // 수정
-            else {
-                diary = original.withUpdatedContent(title, content, mood, System.currentTimeMillis());
-            }
+            Diary diary = (original == null)
+                    ? new Diary(title, content, mood, 0L, 0L)
+                    : original.withUpdatedContent(title, content, mood, System.currentTimeMillis());
             saveDiaryUseCase.execute(diary);
             saveComplete.setValue(true);
         }
@@ -58,7 +50,6 @@ public class EditViewModel extends AndroidViewModel {
             errorMsg.setValue(e.getMessage());
         }
     }
-
     // LiveData 접근자
     public MutableLiveData<Boolean> getSaveComplete() {
         return saveComplete;

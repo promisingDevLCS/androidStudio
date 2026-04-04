@@ -1,6 +1,5 @@
 package com.example.myapplicationforreport.ui.list;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplicationforreport.R;
+import com.example.myapplicationforreport.data.local.MoodConverter;
 import com.example.myapplicationforreport.domain.model.Diary;
 
 import java.text.SimpleDateFormat;
@@ -36,8 +36,8 @@ public class DiaryAdapter extends ListAdapter<Diary, DiaryAdapter.DiaryViewHolde
     private final OnItemClickListener clickListener;
     private final onItemLongClickListener longClickListener;
 
-    public DiaryAdapter(@NonNull DiffUtil.ItemCallback<Diary> diffCallback, OnItemClickListener clickListener, onItemLongClickListener longClickListener) {
-        super(diffCallback);
+    public DiaryAdapter(OnItemClickListener clickListener, onItemLongClickListener longClickListener) {
+        super(DIFF_CALLBACK);
         this.clickListener = clickListener;
         this.longClickListener = longClickListener;
     }
@@ -49,12 +49,11 @@ public class DiaryAdapter extends ListAdapter<Diary, DiaryAdapter.DiaryViewHolde
             return oldItem.getId() == newItem.getId();
         }
 
-        @SuppressLint("DiffUtilEquals")
         @Override
         public boolean areContentsTheSame(@NonNull Diary oldItem, @NonNull Diary newItem) {
             return Objects.equals(oldItem.getTitle(), newItem.getTitle())
                     && Objects.equals(oldItem.getContent(), newItem.getContent())
-                    && oldItem.getMood() == newItem.getMood()
+                    && Objects.equals(oldItem.getMood(), newItem.getMood())
                     && oldItem.getUpdatedAt() == newItem.getUpdatedAt();
         }
     };
@@ -69,6 +68,7 @@ public class DiaryAdapter extends ListAdapter<Diary, DiaryAdapter.DiaryViewHolde
         return new DiaryViewHolder(view);
     }
 
+    // ViewHolder에 데이터 바인딩
     @Override
     public void onBindViewHolder(@NonNull DiaryViewHolder holder, int position) {
         Diary diary = getItem(position);
@@ -95,7 +95,7 @@ public class DiaryAdapter extends ListAdapter<Diary, DiaryAdapter.DiaryViewHolde
             tvTitle.setText(diary.getTitle());
             tvPreview.setText(truncate(diary.getContent(), 60));
             tvDate.setText(formatDate(diary.getCreatedAt()));
-            tvMood.setText(diary.getMood().toString());
+            tvMood.setText(MoodConverter.fromMood(diary.getMood()));
 
             itemView.setOnClickListener(v -> clickListener.onItemClick(diary));
             itemView.setOnLongClickListener(v -> {

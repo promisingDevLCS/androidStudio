@@ -27,11 +27,11 @@ public abstract class DiaryDB extends RoomDatabase{
         if (instance == null) {
             synchronized (DiaryDB.class) {
                 if (instance == null) {
-                    //
                     instance = Room.databaseBuilder(
                             context.getApplicationContext(),
                             DiaryDB.class,
                             DB_NAME)
+                            // true: Migration 실패 시 모든 테이블 삭제 후 재생성, false: 해당 테이블만 삭제 후 재생성
                             .fallbackToDestructiveMigration(false)
                             .build();
                 }

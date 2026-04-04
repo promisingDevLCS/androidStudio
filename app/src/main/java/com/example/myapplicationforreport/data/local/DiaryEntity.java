@@ -31,7 +31,8 @@ public class DiaryEntity {
     private long updatedAt;
 
     // Constructor
-    public DiaryEntity(String title, String content, Mood mood, long createdAt, long updatedAt) {
+    public DiaryEntity(int id, String title, String content, Mood mood, long createdAt, long updatedAt) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.mood = mood;
@@ -44,9 +45,9 @@ public class DiaryEntity {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
+    public void setId(int id) {this.id = id;}
+
+    public String getTitle() {return title;}
 
     public void setTitle(String title) {
         this.title = title;

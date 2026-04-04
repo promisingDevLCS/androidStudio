@@ -2,6 +2,7 @@ import org.gradle.kotlin.dsl.annotationProcessor
 
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.navigation.safe.args)
 }
 
 android {
@@ -45,21 +46,22 @@ android {
 
 dependencies {
     implementation(libs.appcompat)
+    implementation(libs.constraintlayout)
     implementation(libs.material)
     implementation(libs.activity)
-    implementation(libs.constraintlayout)
+    implementation(libs.fragment)
+    implementation(libs.recyclerview)
+    // UI 관련 라이브러리(데이터 생명주기 보관, 데이터 변경 감지)
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.livedata)
+    // Room DB(Local DB)
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    // 네비게이션 바
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    // ViewModel/Repository -> junit, Room DAO -> ext.junit, 화면 이동/ 버튼 클릭 -> espresso
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    // Room (local db) 추가
-    implementation("androidx.room:room-runtime:2.8.4")
-    annotationProcessor("androidx.room:room-compiler:2.8.4")
-    // ViewModel & LiveData
-    implementation("androidx.lifecycle:lifecycle-viewmodel:2.10.0")
-    implementation("androidx.lifecycle:lifecycle-livedata:2.10.0")
-    // RecyclerView
-    implementation("androidx.recyclerview:recyclerview:1.4.0")
-    // Activity + Fragment KTX (Java에서도 ViewModelProvider 편의 지원)
-    implementation("androidx.activity:activity:1.13.0")
 }
